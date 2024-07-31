@@ -12,9 +12,8 @@ func main() {
 		os.Exit(64)
 	} else if len(os.Args) == 2 {
 		err := runFile(os.Args[1])
-		if err != nil {
-			fmt.Printf("Error running file: %s", err)
-		}
+		report(0, "", err)
+		os.Exit(65)
 	} else {
 		err := runPrompt()
 		if err != nil {
@@ -53,4 +52,8 @@ func runPrompt() error {
 func run(source string) error {
 	fmt.Println(source)
 	return nil
+}
+
+func report(line int, where string, err error) {
+	fmt.Printf("[line %d] Error %s : %s", line, where, err)
 }
